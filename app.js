@@ -3,7 +3,6 @@ const menuData = [
     { name: "Mushroom Pulav", price: 180, category: "Pulav Varieties", ingredients: "Basmati rice, fresh mushrooms, Indian spices, herbs." },
     { name: "Paneer Pulav", price: 190, category: "Pulav Varieties", ingredients: "Basmati rice, paneer cubes, green peas, whole spices." },
     { name: "Vaibhavam Pulav", price: 220, category: "Pulav Varieties", ingredients: "Basmati rice, mixed vegetables, paneer, mushrooms, cashew nuts, signature spices." },
-
     // Starters
     { name: "French Fries", price: 110, category: "Starters", ingredients: "Crispy potato strips, salt, served with ketchup." },
     { name: "French Fries with Cheese", price: 150, category: "Starters", ingredients: "Crispy potato strips loaded with melted cheese sauce." },
@@ -16,10 +15,8 @@ const menuData = [
     { name: "Garlic Roasted Mushroom", price: 170, category: "Starters", ingredients: "Mushrooms pan-roasted with generous amounts of minced garlic and butter." },
     { name: "Dragon Paneer", price: 170, category: "Starters", ingredients: "Spicy and sweet crispy paneer tossed in fiery dragon sauce." },
     { name: "Dragon Mushroom", price: 170, category: "Starters", ingredients: "Crispy mushrooms tossed in sweet and spicy chili sauce with cashews." },
-
     // Soup
     { name: "Veg Clear Soup", price: 90, category: "Soup", ingredients: "Clear vegetable broth with finely diced carrots, beans, and cabbage." },
-
     // Main Course (Curries & Gravies)
     { name: "Aloo Gobi", price: 170, category: "Main Course", ingredients: "Potatoes and cauliflower cooked in onion-tomato masala." },
     { name: "Gobi Fry", price: 180, category: "Main Course", ingredients: "Dry preparation of cauliflower with South Indian spices." },
@@ -35,7 +32,6 @@ const menuData = [
     { name: "Mushroom Do Pyaza", price: 210, category: "Main Course", ingredients: "Mushrooms cooked with double the amount of onions in a semi-dry gravy." },
     { name: "Mushroom Handi Biryani / Gravy", price: 210, category: "Main Course", ingredients: "A special mixed mushroom preparation served in a traditional handi." },
     { name: "Paneer Bhurji / Tikka Gravy", price: 210, category: "Main Course", ingredients: "Scrambled paneer or roasted paneer tikka in a spiced tomato-onion base." },
-
     // Chinese (Dry & Semi-Gravy)
     { name: "Gobi Manchurian", price: 170, category: "Chinese", ingredients: "Crispy cauliflower florets tossed in a tangy Manchurian sauce." },
     { name: "Gobi Chilli", price: 170, category: "Chinese", ingredients: "Cauliflower florets tossed with soy sauce, green chilies, and bell peppers." },
@@ -47,7 +43,6 @@ const menuData = [
     { name: "Chilli Paneer", price: 200, category: "Chinese", ingredients: "Classic Indo-Chinese dish of paneer tossed with spicy chilies and bell peppers." },
     { name: "Schezwan Paneer", price: 220, category: "Chinese", ingredients: "Paneer cubes tossed in fiery, garlic-heavy homemade Schezwan sauce." },
     { name: "Schezwan Mushroom", price: 220, category: "Chinese", ingredients: "Mushrooms cooked in a spicy, garlicky Schezwan pepper sauce." },
-
     // Vaibhavam Specials
     { name: "Ghee Podi Idli", price: 110, category: "Vaibhavam Specials", ingredients: "Mini idlis tossed in pure ghee and spicy gunpowder (podi)." },
     { name: "Mushroom Masala Dosa", price: 160, category: "Vaibhavam Specials", ingredients: "Crispy dosa stuffed with spicy mushroom masala." },
@@ -66,7 +61,6 @@ const menuData = [
     { name: "Triple Rice / Noodles", price: 220, category: "Vaibhavam Specials", ingredients: "A massive combo of Hakka noodles, fried rice, and Schezwan gravy." },
     { name: "Cheesy Mushroom Masala Dosa", price: 200, category: "Vaibhavam Specials", ingredients: "Classic mushroom masala dosa enhanced with melted cheese." },
     { name: "Cheese Cold Coffee", price: 130, category: "Vaibhavam Specials", ingredients: "A unique cold coffee blend with a rich, savory-sweet cheese foam." },
-
     // Beverages
     { name: "Black Tea", price: 15, category: "Beverages", ingredients: "Freshly brewed black tea leaves." },
     { name: "Tea", price: 25, category: "Beverages", ingredients: "Traditional Kerala-style milk tea." },
@@ -83,7 +77,6 @@ const menuData = [
     { name: "Mint Lime", price: 45, category: "Beverages", ingredients: "Refreshing lime juice blended with fresh mint leaves." },
     { name: "Watermelon Juice", price: 60, category: "Beverages", ingredients: "Freshly pressed watermelon juice." },
     { name: "Mango Juice", price: 65, category: "Beverages", ingredients: "Sweet and thick fresh mango juice." },
-
     // Shakes & Mojitos
     { name: "Vanilla Shake", price: 100, category: "Shakes", ingredients: "Vanilla ice cream blended with cold milk." },
     { name: "Sharjah Shake", price: 100, category: "Shakes", ingredients: "Kerala's famous banana milkshake with peanuts and horlicks/boost." },
@@ -99,7 +92,6 @@ const menuData = [
     { name: "Tender Coconut Shake", price: 130, category: "Shakes", ingredients: "Fresh tender coconut meat and water blended with milk." },
     { name: "Badam Shake", price: 120, category: "Shakes", ingredients: "Rich almond milkshake flavored with saffron." },
     { name: "Virgin Mint Mojito", price: 120, category: "Shakes", ingredients: "Muddled mint and lime topped with chilled soda and ice." },
-
     // Dosas & Tiffins
     { name: "Plain Uttapam", price: 70, category: "Dosas & Tiffins", ingredients: "Thick, soft savory pancake made from rice and lentil batter." },
     { name: "Ghee Sambar Button Idli (12 Pcs)", price: 100, category: "Dosas & Tiffins", ingredients: "12 miniature idlis submerged in hot sambar and drizzled with ghee." },
@@ -117,7 +109,6 @@ const menuData = [
     { name: "Ghee Onion Rava Dosa", price: 130, category: "Dosas & Tiffins", ingredients: "Crispy semolina dosa with onions, roasted in ghee." },
     { name: "Cheese Onion Rava Dosa", price: 160, category: "Dosas & Tiffins", ingredients: "Semolina dosa with onions and generous cheese topping." },
     { name: "Ghee Paper Roast", price: 180, category: "Dosas & Tiffins", ingredients: "Extra-large, paper-thin, super crispy dosa roasted in ghee." },
-
     // Lunch, Rice & Noodles
     { name: "Meals", price: 130, category: "Meals & Rice", ingredients: "Traditional Kerala vegetarian meals with rice, sambar, avial, thoran, rasam, and buttermilk." },
     { name: "Vaibhavam Special Thali", price: 200, category: "Meals & Rice", ingredients: "An elaborate premium thali with North and South Indian delicacies." },
@@ -128,12 +119,10 @@ const menuData = [
     { name: "Veg Rice", price: 120, category: "Meals & Rice", ingredients: "Simple stir-fried rice with mixed vegetables." },
     { name: "Jeera Rice", price: 120, category: "Meals & Rice", ingredients: "Basmati rice tempered with cumin seeds and ghee." }
 ];
-
 // 1. Navbar Scroll Effect & Mobile Toggle
 const navbar = document.getElementById('navbar');
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navLinks = document.querySelector('.nav-links');
-
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
@@ -141,7 +130,6 @@ window.addEventListener('scroll', () => {
         navbar.classList.remove('scrolled');
     }
 });
-
 mobileMenuBtn.addEventListener('click', () => {
     navLinks.classList.toggle('active');
     const icon = mobileMenuBtn.querySelector('i');
@@ -155,14 +143,12 @@ mobileMenuBtn.addEventListener('click', () => {
         if (window.scrollY <= 50) navbar.classList.remove('scrolled');
     }
 });
-
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
         mobileMenuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
     });
 });
-
 // 2. Hero Slider
 function initHeroSlider() {
     const slides = document.querySelectorAll('.slide');
@@ -176,7 +162,6 @@ function initHeroSlider() {
     }, 5000); 
 }
 initHeroSlider();
-
 // 3. Scroll Reveal Animation
 function reveal() {
     const reveals = document.querySelectorAll('.reveal');
@@ -197,13 +182,11 @@ function reveal() {
 }
 window.addEventListener('scroll', reveal);
 reveal();
-
 // 4. Menu Tabs and Rendering with Modal
 const categories = [...new Set(menuData.map(item => item.category))];
 const tabContainer = document.getElementById('tabContainer');
 const menuGrid = document.getElementById('menuGrid');
 const seeMoreBtn = document.getElementById('seeMoreBtn');
-
 // Modal Elements
 const modal = document.getElementById('itemModal');
 const closeModalBtn = document.querySelector('.close-modal');
@@ -212,11 +195,9 @@ const modalTitle = document.getElementById('modalTitle');
 const modalCategory = document.getElementById('modalCategory');
 const modalPrice = document.getElementById('modalPrice');
 const modalIngredients = document.getElementById('modalIngredients');
-
 let currentCategoryItems = [];
 let itemsDisplayed = 0;
 const INITIAL_ITEMS_TO_SHOW = 6;
-
 function openModal(item) {
     modalTitle.textContent = item.name;
     modalCategory.textContent = item.category;
@@ -228,17 +209,14 @@ function openModal(item) {
     
     modal.classList.add('show');
 }
-
 closeModalBtn.addEventListener('click', () => {
     modal.classList.remove('show');
 });
-
 window.addEventListener('click', (e) => {
     if (e.target === modal) {
         modal.classList.remove('show');
     }
 });
-
 function renderMenu(category, append = false) {
     if (!append) {
         menuGrid.innerHTML = '';
@@ -272,20 +250,16 @@ function renderMenu(category, append = false) {
         
         menuGrid.appendChild(menuItem);
     });
-
     itemsDisplayed += itemsToRender.length;
-
     if (itemsDisplayed < currentCategoryItems.length) {
         seeMoreBtn.style.display = 'block';
     } else {
         seeMoreBtn.style.display = 'none';
     }
 }
-
 seeMoreBtn.addEventListener('click', () => {
     renderMenu(null, true);
 });
-
 function initTabs() {
     // 'All' tab
     const allBtn = document.createElement('button');
@@ -304,7 +278,6 @@ function initTabs() {
         tabContainer.appendChild(btn);
     });
 }
-
 function handleTabClick(e, category) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     e.target.classList.add('active');
@@ -315,16 +288,13 @@ function handleTabClick(e, category) {
         menuGrid.style.opacity = 1;
     }, 300);
 }
-
 initTabs();
 renderMenu('All');
-
 // Set total menu count dynamically next to "Our Menu" subtitle
 const menuSubtitle = document.querySelector('.section-subtitle');
 if (menuSubtitle) {
     menuSubtitle.innerHTML = `Our Menu <span style="font-size: 0.9rem; opacity: 0.7; letter-spacing: normal;">(${menuData.length} Items)</span>`;
 }
-
 // 5. Booking Form Mock Submit
 document.getElementById('bookingForm').addEventListener('submit', (e) => {
     e.preventDefault();
