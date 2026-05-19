@@ -223,16 +223,8 @@ function openModal(item) {
     modalPrice.textContent = `₹${item.price}`;
     modalIngredients.textContent = item.ingredients;
     
-    // Format name for asset image path: "Mushroom Pulav" -> "mushroom-pulav.jpg"
-    const imageFilename = item.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-') + '.jpg';
-                         
-    // First try to load from assets. If it fails, load a solid placeholder
-    modalImage.src = `assets/${imageFilename}`;
-    
-    modalImage.onerror = function() {
-        this.onerror = null; // Prevent infinite loop
-        this.src = "https://via.placeholder.com/600x400/2C4C3B/FFFFFF?text=" + encodeURIComponent(item.name);
-    };
+    // Directly show self-contained "Image Not Available" SVG placeholder (minimal dark grey)
+    modalImage.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%232a2a2a'/><text x='50%' y='180' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' font-weight='500' fill='%23888888' letter-spacing='2'>SWAMY'S VAIBHAVAM</text><text x='50%' y='220' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='22' font-weight='600' fill='%23cccccc'>Image Not Available</text></svg>";
     
     modal.classList.add('show');
 }
@@ -298,15 +290,16 @@ function initTabs() {
     // 'All' tab
     const allBtn = document.createElement('button');
     allBtn.className = 'tab-btn active';
-    allBtn.textContent = 'All';
+    allBtn.innerHTML = `All <span style="opacity:0.6; font-size:0.85em;">(${menuData.length})</span>`;
     allBtn.onclick = (e) => handleTabClick(e, 'All');
     tabContainer.appendChild(allBtn);
     
     // Category tabs
     categories.forEach(cat => {
+        const count = menuData.filter(item => item.category === cat).length;
         const btn = document.createElement('button');
         btn.className = 'tab-btn';
-        btn.textContent = cat;
+        btn.innerHTML = `${cat} <span style="opacity:0.6; font-size:0.85em;">(${count})</span>`;
         btn.onclick = (e) => handleTabClick(e, cat);
         tabContainer.appendChild(btn);
     });
@@ -325,6 +318,12 @@ function handleTabClick(e, category) {
 
 initTabs();
 renderMenu('All');
+
+// Set total menu count dynamically next to "Our Menu" subtitle
+const menuSubtitle = document.querySelector('.section-subtitle');
+if (menuSubtitle) {
+    menuSubtitle.innerHTML = `Our Menu <span style="font-size: 0.9rem; opacity: 0.7; letter-spacing: normal;">(${menuData.length} Items)</span>`;
+}
 
 // 5. Booking Form Mock Submit
 document.getElementById('bookingForm').addEventListener('submit', (e) => {
