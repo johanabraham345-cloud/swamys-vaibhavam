@@ -981,47 +981,72 @@ h1, h2, h3, h4 {
         font-size: 2rem;
     }
     
-    /* Make Reviews a Horizontal Swipeable Carousel on Mobile */
-    .reviews-grid {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 1rem;
-        padding-bottom: 1.5rem;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Hide scrollbar Firefox */
+    .hero {
+        height: 70vh;
     }
-    .reviews-grid::-webkit-scrollbar {
-        display: none; /* Hide scrollbar Chrome/Safari */
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Compact Reviews for Mobile Instead of Horizontal Scroll */
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
     
     .review-card {
-        min-width: 85vw;
-        scroll-snap-align: center;
+        padding: 1rem;
+    }
+    
+    .reviewer-img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .reviewer-info h4 {
+        font-size: 0.95rem;
+    }
+    
+    .guide-info {
+        font-size: 0.7rem;
+    }
+    
+    .review-body p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    
+    .stars {
+        font-size: 0.7rem;
     }
     
     /* Fix About Image and Badge for Mobile */
     .about-image-wrapper {
-        height: 350px;
+        height: 200px;
         margin-bottom: 2rem;
     }
     
     .experience-badge {
-        width: 120px;
-        height: 120px;
-        padding: 1rem;
-        border-width: 5px;
-        bottom: -20px;
+        width: 90px;
+        height: 90px;
+        padding: 0.5rem;
+        border-width: 4px;
+        bottom: -15px;
         left: 10px;
     }
     
     .experience-badge .number {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
     }
     
     .experience-badge .text {
-        font-size: 0.7rem;
+        font-size: 0.55rem;
     }
     
     .modal-body {
