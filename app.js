@@ -184,10 +184,14 @@ function reveal() {
     
     reveals.forEach(element => {
         const elementTop = element.getBoundingClientRect().top;
+        const elementBottom = element.getBoundingClientRect().bottom;
         const elementVisible = 100;
         
-        if (elementTop < windowHeight - elementVisible) {
+        if (elementTop < windowHeight - elementVisible && elementBottom > 0) {
             element.classList.add('active');
+        } else {
+            // Remove class when out of view so it re-animates every time
+            element.classList.remove('active');
         }
     });
 }
@@ -254,9 +258,14 @@ function renderMenu(category, append = false) {
     
     const itemsToRender = currentCategoryItems.slice(itemsDisplayed, itemsDisplayed + INITIAL_ITEMS_TO_SHOW);
         
-    itemsToRender.forEach(item => {
+    itemsToRender.forEach((item, index) => {
         const menuItem = document.createElement('div');
         menuItem.className = 'menu-item';
+        
+        // Add staggered animation delay
+        menuItem.style.animation = `staggeredFadeIn 0.5s ease-out forwards`;
+        menuItem.style.animationDelay = `${index * 0.1}s`;
+        menuItem.style.opacity = '0';
         
         menuItem.innerHTML = `
             <div class="item-info">
