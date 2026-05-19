@@ -1,1084 +1,312 @@
-/* ==========================================================================
-   Swamy's Vaibhavam - Premium Restaurant Stylesheet
-   ========================================================================== */
-
-:root {
-    --clr-bg: #FAF9F6;           /* Premium off-white */
-    --clr-text-main: #1A1D1A;    /* Very dark green-black for text */
-    --clr-text-muted: #555E55;   /* Muted text */
-    --clr-primary: #B8860B;      /* Elegant Gold */
-    --clr-primary-hover: #997009;
-    --clr-secondary: #2C4C3B;    /* Deep Forest Green */
-    --clr-white: #FFFFFF;
+const menuData = [
+    // Pulav Varieties
+    { name: "Mushroom Pulav", price: 180, category: "Pulav Varieties", ingredients: "Basmati rice, fresh mushrooms, Indian spices, herbs." },
+    { name: "Paneer Pulav", price: 190, category: "Pulav Varieties", ingredients: "Basmati rice, paneer cubes, green peas, whole spices." },
+    { name: "Vaibhavam Pulav", price: 220, category: "Pulav Varieties", ingredients: "Basmati rice, mixed vegetables, paneer, mushrooms, cashew nuts, signature spices." },
+    // Starters
+    { name: "French Fries", price: 110, category: "Starters", ingredients: "Crispy potato strips, salt, served with ketchup." },
+    { name: "French Fries with Cheese", price: 150, category: "Starters", ingredients: "Crispy potato strips loaded with melted cheese sauce." },
+    { name: "Gobi 65", price: 140, category: "Starters", ingredients: "Cauliflower florets marinated in spicy batter and deep-fried." },
+    { name: "Mushroom 65", price: 150, category: "Starters", ingredients: "Button mushrooms coated in spicy flour mix and deep-fried." },
+    { name: "Paneer 65", price: 160, category: "Starters", ingredients: "Cottage cheese cubes tossed in spicy 65 masala." },
+    { name: "Golden Fried Mushroom", price: 170, category: "Starters", ingredients: "Crispy batter-fried mushrooms served golden brown." },
+    { name: "Mushroom Pepper Fry", price: 170, category: "Starters", ingredients: "Mushrooms sautéed with onions, curry leaves, and freshly cracked black pepper." },
+    { name: "Gobi Sesame Roasted", price: 170, category: "Starters", ingredients: "Roasted cauliflower tossed with sesame seeds and soy-based sauce." },
+    { name: "Garlic Roasted Mushroom", price: 170, category: "Starters", ingredients: "Mushrooms pan-roasted with generous amounts of minced garlic and butter." },
+    { name: "Dragon Paneer", price: 170, category: "Starters", ingredients: "Spicy and sweet crispy paneer tossed in fiery dragon sauce." },
+    { name: "Dragon Mushroom", price: 170, category: "Starters", ingredients: "Crispy mushrooms tossed in sweet and spicy chili sauce with cashews." },
+    // Soup
+    { name: "Veg Clear Soup", price: 90, category: "Soup", ingredients: "Clear vegetable broth with finely diced carrots, beans, and cabbage." },
+    // Main Course (Curries & Gravies)
+    { name: "Aloo Gobi", price: 170, category: "Main Course", ingredients: "Potatoes and cauliflower cooked in onion-tomato masala." },
+    { name: "Gobi Fry", price: 180, category: "Main Course", ingredients: "Dry preparation of cauliflower with South Indian spices." },
+    { name: "Tomato Masala", price: 170, category: "Main Course", ingredients: "Tangy and spicy gravy made with ripe tomatoes and herbs." },
+    { name: "Green Peas Masala", price: 170, category: "Main Course", ingredients: "Green peas simmered in a rich and creamy onion-tomato gravy." },
+    { name: "Dal Tadka", price: 150, category: "Main Course", ingredients: "Yellow lentils tempered with ghee, cumin, garlic, and dried red chilies." },
+    { name: "Gobi Butter Masala", price: 180, category: "Main Course", ingredients: "Cauliflower simmered in a rich, buttery tomato gravy." },
+    { name: "Paneer Butter Masala", price: 210, category: "Main Course", ingredients: "Paneer cubes in a rich, creamy, slightly sweet tomato and cashew gravy." },
+    { name: "Kadai Paneer", price: 210, category: "Main Course", ingredients: "Paneer tossed with bell peppers, onions, and freshly ground kadai masala." },
+    { name: "Kadai Mushroom", price: 210, category: "Main Course", ingredients: "Mushrooms cooked with bell peppers in a spicy, rustic kadai gravy." },
+    { name: "Navratan Kurma", price: 210, category: "Main Course", ingredients: "Nine varieties of vegetables and fruits in a rich, creamy, mild white gravy." },
+    { name: "Mushroom Kolhapuri", price: 210, category: "Main Course", ingredients: "Very spicy preparation of mushrooms in traditional Kolhapuri masala." },
+    { name: "Mushroom Do Pyaza", price: 210, category: "Main Course", ingredients: "Mushrooms cooked with double the amount of onions in a semi-dry gravy." },
+    { name: "Mushroom Handi Biryani / Gravy", price: 210, category: "Main Course", ingredients: "A special mixed mushroom preparation served in a traditional handi." },
+    { name: "Paneer Bhurji / Tikka Gravy", price: 210, category: "Main Course", ingredients: "Scrambled paneer or roasted paneer tikka in a spiced tomato-onion base." },
+    // Chinese (Dry & Semi-Gravy)
+    { name: "Gobi Manchurian", price: 170, category: "Chinese", ingredients: "Crispy cauliflower florets tossed in a tangy Manchurian sauce." },
+    { name: "Gobi Chilli", price: 170, category: "Chinese", ingredients: "Cauliflower florets tossed with soy sauce, green chilies, and bell peppers." },
+    { name: "Babycorn Manchurian", price: 180, category: "Chinese", ingredients: "Crispy baby corn in a classic Indo-Chinese Manchurian sauce." },
+    { name: "Chilli Babycorn", price: 180, category: "Chinese", ingredients: "Spicy, crispy baby corn stir-fried with capsicum and green chilies." },
+    { name: "Mushroom Manchurian", price: 190, category: "Chinese", ingredients: "Fried mushrooms coated in sweet, tangy, and slightly spicy sauce." },
+    { name: "Chilli Mushroom", price: 190, category: "Chinese", ingredients: "Mushrooms stir-fried with spicy chili sauce, soy, and peppers." },
+    { name: "Paneer Manchurian", price: 200, category: "Chinese", ingredients: "Cottage cheese cubes tossed in savory Manchurian sauce." },
+    { name: "Chilli Paneer", price: 200, category: "Chinese", ingredients: "Classic Indo-Chinese dish of paneer tossed with spicy chilies and bell peppers." },
+    { name: "Schezwan Paneer", price: 220, category: "Chinese", ingredients: "Paneer cubes tossed in fiery, garlic-heavy homemade Schezwan sauce." },
+    { name: "Schezwan Mushroom", price: 220, category: "Chinese", ingredients: "Mushrooms cooked in a spicy, garlicky Schezwan pepper sauce." },
+    // Vaibhavam Specials
+    { name: "Ghee Podi Idli", price: 110, category: "Vaibhavam Specials", ingredients: "Mini idlis tossed in pure ghee and spicy gunpowder (podi)." },
+    { name: "Mushroom Masala Dosa", price: 160, category: "Vaibhavam Specials", ingredients: "Crispy dosa stuffed with spicy mushroom masala." },
+    { name: "Chocolate Dosa", price: 120, category: "Vaibhavam Specials", ingredients: "Kid's favorite dosa spread with rich melted chocolate." },
+    { name: "Gobi Manchurian Dosa", price: 150, category: "Vaibhavam Specials", ingredients: "Fusion dosa stuffed with Indo-Chinese Gobi Manchurian." },
+    { name: "Chilli Mushroom Dosa", price: 160, category: "Vaibhavam Specials", ingredients: "Crispy crepe folded over spicy Chilli Mushroom." },
+    { name: "Chilli Paneer Dosa", price: 160, category: "Vaibhavam Specials", ingredients: "Dosa filled with spicy and tangy Chilli Paneer." },
+    { name: "Paneer Manchurian Dosa", price: 160, category: "Vaibhavam Specials", ingredients: "Indo-Chinese fusion: Dosa with Paneer Manchurian filling." },
+    { name: "Mushroom Manchurian Dosa", price: 160, category: "Vaibhavam Specials", ingredients: "Crispy crepe filled with tangy Mushroom Manchurian." },
+    { name: "Paneer Butter Masala Dosa", price: 170, category: "Vaibhavam Specials", ingredients: "A decadent combination of crispy dosa and rich Paneer Butter Masala." },
+    { name: "Cheese Onion Butter Rava Dosa", price: 170, category: "Vaibhavam Specials", ingredients: "Crispy semolina dosa loaded with cheese, butter, and chopped onions." },
+    { name: "Cheese Gobi Manchurian Dosa", price: 200, category: "Vaibhavam Specials", ingredients: "Gobi Manchurian dosa heavily topped with melted cheese." },
+    { name: "Cheese Chilli Mushroom Dosa", price: 210, category: "Vaibhavam Specials", ingredients: "Spicy Chilli Mushroom dosa with a gooey cheese layer." },
+    { name: "Cheese Mushroom Manchurian Dosa", price: 210, category: "Vaibhavam Specials", ingredients: "Mushroom Manchurian dosa combined with melted cheese." },
+    { name: "Cheese Schezwan Noodles Dosa", price: 220, category: "Vaibhavam Specials", ingredients: "Dosa stuffed with spicy Schezwan noodles and topped with cheese." },
+    { name: "Triple Rice / Noodles", price: 220, category: "Vaibhavam Specials", ingredients: "A massive combo of Hakka noodles, fried rice, and Schezwan gravy." },
+    { name: "Cheesy Mushroom Masala Dosa", price: 200, category: "Vaibhavam Specials", ingredients: "Classic mushroom masala dosa enhanced with melted cheese." },
+    { name: "Cheese Cold Coffee", price: 130, category: "Vaibhavam Specials", ingredients: "A unique cold coffee blend with a rich, savory-sweet cheese foam." },
+    // Beverages
+    { name: "Black Tea", price: 15, category: "Beverages", ingredients: "Freshly brewed black tea leaves." },
+    { name: "Tea", price: 25, category: "Beverages", ingredients: "Traditional Kerala-style milk tea." },
+    { name: "Lemon Tea", price: 30, category: "Beverages", ingredients: "Black tea infused with fresh lemon juice and a hint of mint." },
+    { name: "Filter Coffee", price: 30, category: "Beverages", ingredients: "Authentic South Indian filter coffee brewed with chicory." },
+    { name: "Milk Coffee", price: 30, category: "Beverages", ingredients: "Instant coffee blended with hot milk." },
+    { name: "Hot Milk", price: 25, category: "Beverages", ingredients: "Plain boiled pure milk." },
+    { name: "Horlicks", price: 40, category: "Beverages", ingredients: "Malted milk hot beverage." },
+    { name: "Boost", price: 40, category: "Beverages", ingredients: "Chocolate malt hot beverage." },
+    { name: "Hot Badam Milk", price: 40, category: "Beverages", ingredients: "Hot milk blended with crushed almonds, saffron, and cardamom." },
+    { name: "Masala Tea", price: 35, category: "Beverages", ingredients: "Milk tea brewed with ginger, cardamom, and clove." },
+    { name: "Lemon Juice", price: 35, category: "Beverages", ingredients: "Freshly squeezed lemon juice with water and sugar." },
+    { name: "Fresh Lime Soda", price: 50, category: "Beverages", ingredients: "Fresh lime juice mixed with chilled club soda (sweet or salted)." },
+    { name: "Mint Lime", price: 45, category: "Beverages", ingredients: "Refreshing lime juice blended with fresh mint leaves." },
+    { name: "Watermelon Juice", price: 60, category: "Beverages", ingredients: "Freshly pressed watermelon juice." },
+    { name: "Mango Juice", price: 65, category: "Beverages", ingredients: "Sweet and thick fresh mango juice." },
+    // Shakes & Mojitos
+    { name: "Vanilla Shake", price: 100, category: "Shakes", ingredients: "Vanilla ice cream blended with cold milk." },
+    { name: "Sharjah Shake", price: 100, category: "Shakes", ingredients: "Kerala's famous banana milkshake with peanuts and horlicks/boost." },
+    { name: "Strawberry Shake", price: 110, category: "Shakes", ingredients: "Strawberry crush and ice cream blended with milk." },
+    { name: "Chiku Shake", price: 120, category: "Shakes", ingredients: "Fresh sapota (chiku) blended with milk and sugar." },
+    { name: "Chocolate Shake", price: 120, category: "Shakes", ingredients: "Rich chocolate syrup and ice cream milkshake." },
+    { name: "Butterscotch Shake", price: 120, category: "Shakes", ingredients: "Butterscotch ice cream shake with praline crunch." },
+    { name: "Pista Shake", price: 120, category: "Shakes", ingredients: "Pistachio flavored rich milkshake." },
+    { name: "Oreo Shake", price: 130, category: "Shakes", ingredients: "Crushed Oreo cookies blended with vanilla ice cream and milk." },
+    { name: "Mango Shake", price: 120, category: "Shakes", ingredients: "Fresh mango pulp blended with chilled milk." },
+    { name: "Pomegranate Shake", price: 130, category: "Shakes", ingredients: "Fresh pomegranate arils blended into a rich shake." },
+    { name: "Cold Coffee with Ice Cream", price: 120, category: "Shakes", ingredients: "Iced blended coffee topped with a scoop of vanilla ice cream." },
+    { name: "Tender Coconut Shake", price: 130, category: "Shakes", ingredients: "Fresh tender coconut meat and water blended with milk." },
+    { name: "Badam Shake", price: 120, category: "Shakes", ingredients: "Rich almond milkshake flavored with saffron." },
+    { name: "Virgin Mint Mojito", price: 120, category: "Shakes", ingredients: "Muddled mint and lime topped with chilled soda and ice." },
+    // Dosas & Tiffins
+    { name: "Plain Uttapam", price: 70, category: "Dosas & Tiffins", ingredients: "Thick, soft savory pancake made from rice and lentil batter." },
+    { name: "Ghee Sambar Button Idli (12 Pcs)", price: 100, category: "Dosas & Tiffins", ingredients: "12 miniature idlis submerged in hot sambar and drizzled with ghee." },
+    { name: "Idli Vada", price: 70, category: "Dosas & Tiffins", ingredients: "Classic combo of two soft steamed idlis and one crispy medu vada." },
+    { name: "Masala Dosa", price: 85, category: "Dosas & Tiffins", ingredients: "Crispy rice crepe filled with spiced potato masala." },
+    { name: "Ghee Uttapam", price: 100, category: "Dosas & Tiffins", ingredients: "Thick rice pancake roasted with pure ghee." },
+    { name: "Butter Roast", price: 105, category: "Dosas & Tiffins", ingredients: "Crispy plain dosa roasted generously with butter." },
+    { name: "Onion Roast", price: 100, category: "Dosas & Tiffins", ingredients: "Crispy dosa topped with finely chopped onions." },
+    { name: "Ghee Podi Dosa", price: 120, category: "Dosas & Tiffins", ingredients: "Crispy dosa smeared with spicy gunpowder and ghee." },
+    { name: "Onion Uttapam", price: 105, category: "Dosas & Tiffins", ingredients: "Thick pancake topped with chopped onions and green chilies." },
+    { name: "Ghee Roast Dosa", price: 120, category: "Dosas & Tiffins", ingredients: "Classic thin and crispy dosa roasted in pure ghee." },
+    { name: "Ghee Masala Dosa", price: 130, category: "Dosas & Tiffins", ingredients: "Crispy ghee-roasted dosa filled with potato masala." },
+    { name: "Butter Masala Dosa", price: 135, category: "Dosas & Tiffins", ingredients: "Crispy butter-roasted dosa filled with potato masala." },
+    { name: "Cheese Dosa", price: 125, category: "Dosas & Tiffins", ingredients: "Crispy dosa loaded with grated melted cheese." },
+    { name: "Ghee Onion Rava Dosa", price: 130, category: "Dosas & Tiffins", ingredients: "Crispy semolina dosa with onions, roasted in ghee." },
+    { name: "Cheese Onion Rava Dosa", price: 160, category: "Dosas & Tiffins", ingredients: "Semolina dosa with onions and generous cheese topping." },
+    { name: "Ghee Paper Roast", price: 180, category: "Dosas & Tiffins", ingredients: "Extra-large, paper-thin, super crispy dosa roasted in ghee." },
+    // Lunch, Rice & Noodles
+    { name: "Meals", price: 130, category: "Meals & Rice", ingredients: "Traditional Kerala vegetarian meals with rice, sambar, avial, thoran, rasam, and buttermilk." },
+    { name: "Vaibhavam Special Thali", price: 200, category: "Meals & Rice", ingredients: "An elaborate premium thali with North and South Indian delicacies." },
+    { name: "North Indian Thali", price: 200, category: "Meals & Rice", ingredients: "Roti/Naan, paneer gravy, dal, pulao, raita, and a sweet." },
+    { name: "Curd Rice", price: 110, category: "Meals & Rice", ingredients: "Soft cooked rice mixed with yogurt and tempered with mustard seeds and curry leaves." },
+    { name: "Lemon Rice", price: 110, category: "Meals & Rice", ingredients: "Tangy rice flavored with lemon juice, peanuts, and turmeric." },
+    { name: "Tomato Rice / Pulav", price: 110, category: "Meals & Rice", ingredients: "Spicy and tangy rice cooked with fresh tomatoes and herbs." },
+    { name: "Veg Rice", price: 120, category: "Meals & Rice", ingredients: "Simple stir-fried rice with mixed vegetables." },
+    { name: "Jeera Rice", price: 120, category: "Meals & Rice", ingredients: "Basmati rice tempered with cumin seeds and ghee." }
+];
+// 1. Navbar Scroll Effect & Mobile Toggle
+const navbar = document.getElementById('navbar');
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    const icon = mobileMenuBtn.querySelector('i');
+    if (navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+        navbar.classList.add('scrolled');
+    } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+        if (window.scrollY <= 50) navbar.classList.remove('scrolled');
+    }
+});
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        mobileMenuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+    });
+});
+// 2. Hero Slider
+function initHeroSlider() {
+    const slides = document.querySelectorAll('.slide');
+    if (slides.length === 0) return;
     
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Outfit', sans-serif;
+    let currentSlide = 0;
+    setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }, 5000); 
+}
+initHeroSlider();
+// 3. Scroll Reveal Animation
+function reveal() {
+    const reveals = document.querySelectorAll('.reveal');
+    const windowHeight = window.innerHeight;
     
-    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--font-body);
-    background-color: var(--clr-bg);
-    color: var(--clr-text-main);
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-/* --- Utilities --- */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.section-padding {
-    padding: 6rem 0;
-}
-
-.text-white {
-    color: var(--clr-white) !important;
-}
-
-.w-100 {
-    width: 100%;
-}
-
-/* --- Buttons --- */
-.btn {
-    display: inline-block;
-    padding: 1rem 2rem;
-    font-family: var(--font-body);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    transition: var(--transition-smooth);
-    text-decoration: none;
-    text-align: center;
-}
-
-.btn-primary {
-    background-color: var(--clr-primary);
-    color: var(--clr-white);
-}
-
-.btn-primary:hover {
-    background-color: var(--clr-primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(184, 134, 11, 0.2);
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: var(--clr-white);
-    border: 1px solid var(--clr-white);
-}
-
-.btn-secondary:hover {
-    background-color: var(--clr-white);
-    color: var(--clr-text-main);
-}
-
-.btn-outline {
-    background-color: transparent;
-    color: var(--clr-primary);
-    border: 1px solid var(--clr-primary);
-}
-
-.btn-outline:hover {
-    background-color: var(--clr-primary);
-    color: var(--clr-white);
-}
-
-/* --- Typography --- */
-h1, h2, h3, h4 {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    line-height: 1.2;
-}
-
-.section-title {
-    font-size: 3rem;
-    color: var(--clr-secondary);
-    margin-bottom: 0.5rem;
-}
-
-.section-subtitle {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: var(--clr-primary);
-    margin-bottom: 2rem;
-}
-
-/* --- Navbar --- */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1.2rem 0;
-    z-index: 1000;
-    transition: var(--transition-smooth);
-}
-
-.navbar.scrolled {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 0.5rem 0;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-}
-
-.nav-logo-img {
-    height: 60px;
-    width: auto;
-    object-fit: contain;
-    border-radius: 8px;
-    transition: var(--transition-smooth);
-}
-
-.navbar.scrolled .nav-logo-img {
-    height: 60px;
-}
-
-.navbar.scrolled .nav-links a,
-.navbar.scrolled .logo-text {
-    color: var(--clr-text-main);
-}
-
-.navbar.scrolled .btn-outline {
-    border-color: var(--clr-secondary);
-    color: var(--clr-secondary);
-}
-
-.nav-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo-text {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--clr-white);
-    text-decoration: none;
-    letter-spacing: 1px;
-    transition: var(--transition-smooth);
-}
-
-.nav-logo {
-    text-decoration: none;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2.5rem;
-}
-
-.nav-links a {
-    color: var(--clr-white);
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: var(--transition-smooth);
-    position: relative;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--clr-primary);
-    transition: var(--transition-smooth);
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-.mobile-menu-btn {
-    display: none;
-    font-size: 1.5rem;
-    color: var(--clr-primary);
-    cursor: pointer;
-}
-
-/* --- Hero Section --- */
-.hero {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-}
-
-.hero-slider, .slide, .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.slide {
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transform: scale(1.05);
-    transition: opacity 1.5s ease-in-out, transform 8s ease-in-out;
-}
-
-.slide.active {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.slide-1 { background-image: url('images/Swamy%27s%20Vaibhavam%20-2.jpg'); }
-.slide-2 { background-image: url('images/Swamy%27s%20Vaibhavam%20-3.png'); }
-.slide-3 { background-image: url('images/Swamy%27s%20Vaibhavam%20-1.png'); }
-
-.hero-overlay {
-    background: linear-gradient(to bottom, rgba(26,29,26,0.8) 0%, rgba(26,29,26,0.6) 100%);
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 800px;
-    padding: 0 2rem;
-}
-
-.badge {
-    display: inline-block;
-    padding: 0.5rem 1.5rem;
-    background-color: rgba(184, 134, 11, 0.2);
-    border: 1px solid var(--clr-primary);
-    color: var(--clr-primary);
-    border-radius: 50px;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-}
-
-.hero-title {
-    font-size: 5rem;
-    color: var(--clr-white);
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease-out;
-    transition-delay: 0.2s;
-}
-
-.hero-subtitle {
-    font-size: 1.2rem;
-    color: #e0e0e0;
-    margin-bottom: 3rem;
-    font-weight: 300;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease-out;
-    transition-delay: 0.4s;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease-out;
-    transition-delay: 0.6s;
-}
-
-.hero-content.active .hero-title,
-.hero-content.active .hero-subtitle,
-.hero-content.active .hero-buttons {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* --- About Section --- */
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.about-text p {
-    color: var(--clr-text-muted);
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-}
-
-.features {
-    display: flex;
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-.feature {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    text-align: center;
-}
-
-.feature i {
-    font-size: 2rem;
-    color: var(--clr-primary);
-}
-
-.feature span {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    color: var(--clr-secondary);
-}
-
-.about-image-wrapper {
-    position: relative;
-    height: 600px;
-}
-
-.about-image {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-
-.experience-badge {
-    position: absolute;
-    bottom: -30px;
-    left: -30px;
-    background-color: var(--clr-white);
-    padding: 2rem;
-    border-radius: 50%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 180px;
-    height: 180px;
-    text-align: center;
-    border: 8px solid var(--clr-bg);
-    animation: gentleFloat 4s ease-in-out infinite;
-}
-
-.experience-badge .number {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    color: var(--clr-primary);
-    line-height: 1;
-}
-
-.experience-badge .text {
-    font-size: 0.8rem;
-    color: var(--clr-text-muted);
-    text-transform: uppercase;
-    margin-top: 0.5rem;
-    letter-spacing: 1px;
-}
-
-/* --- Menu Section --- */
-.section-header {
-    text-align: center;
-    margin-bottom: 4rem;
-}
-
-.tab-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
-}
-
-.tab-btn {
-    background: transparent;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--clr-text-muted);
-    cursor: pointer;
-    border-radius: 50px;
-    transition: var(--transition-smooth);
-}
-
-.tab-btn.active, .tab-btn:hover {
-    background-color: var(--clr-secondary);
-    color: var(--clr-white);
-}
-
-.menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
-}
-
-.menu-item {
-    background-color: var(--clr-white);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-    border: 1px solid rgba(0,0,0,0.05);
-    transition: var(--transition-smooth);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.menu-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-    border-color: var(--clr-primary);
-}
-
-.item-info h4 {
-    font-size: 1.2rem;
-    color: var(--clr-secondary);
-    margin-bottom: 0.3rem;
-}
-
-.item-info p {
-    font-size: 0.9rem;
-    color: var(--clr-text-muted);
-}
-
-.item-price {
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    color: var(--clr-primary);
-    font-weight: 700;
-}
-
-/* --- Reviews Section --- */
-.reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-}
-
-.review-card {
-    background: var(--clr-bg);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid rgba(0,0,0,0.03);
-    transition: var(--transition-smooth);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.review-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-}
-
-.review-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.reviewer-img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--clr-primary);
-}
-
-.reviewer-info h4 {
-    font-size: 1.1rem;
-    color: var(--clr-secondary);
-    margin-bottom: 0.2rem;
-}
-
-.guide-info {
-    font-size: 0.8rem;
-    color: var(--clr-text-muted);
-    margin-bottom: 0.3rem;
-}
-
-.stars {
-    color: #FABB05; /* Google Gold */
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 2px;
-}
-
-.review-time {
-    color: var(--clr-text-muted);
-    margin-left: 0.5rem;
-    font-weight: 400;
-}
-
-.review-body {
-    flex-grow: 1;
-}
-
-.review-body p {
-    font-size: 0.95rem;
-    color: var(--clr-text-main);
-    line-height: 1.7;
-    font-style: italic;
-}
-
-.see-all-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    text-decoration: none;
-    background: rgba(255, 255, 255, 0.5);
-    border: 2px dashed rgba(0,0,0,0.1);
-    height: 100%;
-}
-
-.see-all-card:hover {
-    background: var(--clr-white);
-    border: 2px solid var(--clr-primary);
-}
-
-.see-all-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* --- Reservation Section --- */
-.reservation {
-    position: relative;
-    background-color: var(--clr-secondary);
-    color: var(--clr-white);
-    overflow: hidden;
-}
-
-.reservation-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('images/Swamy\'s Vaibhavam -3.png');
-    background-size: cover;
-    background-attachment: fixed;
-    opacity: 0.15;
-}
-
-.reservation-container {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-}
-
-.reservation-content {
-    text-align: center;
-    max-width: 800px;
-    width: 100%;
-}
-
-.glass-panel {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 3rem;
-    border-radius: 12px;
-    margin-top: 3rem;
-    text-align: left;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.8);
-}
-
-.form-group input, .form-group select {
-    width: 100%;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-    color: var(--clr-white);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    outline: none;
-    transition: var(--transition-smooth);
-}
-
-.form-group input:focus, .form-group select:focus {
-    border-color: var(--clr-primary);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.form-group select option {
-    background-color: var(--clr-secondary);
-    color: var(--clr-white);
-}
-
-/* --- Footer --- */
-.footer {
-    background-color: #111;
-    color: #aaa;
-    padding: 5rem 0 2rem;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 4rem;
-    margin-bottom: 4rem;
-}
-
-.footer-logo {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    color: var(--clr-white);
-    margin-bottom: 1rem;
-}
-
-.brand-col p {
-    margin-bottom: 2rem;
-    max-width: 300px;
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-}
-
-.social-links a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.1);
-    color: var(--clr-white);
-    border-radius: 50%;
-    text-decoration: none;
-    transition: var(--transition-smooth);
-}
-
-.social-links a:hover {
-    background: var(--clr-primary);
-    transform: translateY(-3px);
-}
-
-.footer-col h4 {
-    color: var(--clr-white);
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-}
-
-.hours-list {
-    list-style: none;
-}
-
-.hours-list li {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.8rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 0.5rem;
-}
-
-.map-link {
-    display: inline-block;
-    margin-top: 1rem;
-    color: var(--clr-primary);
-    text-decoration: none;
-    transition: var(--transition-smooth);
-}
-
-.map-link:hover {
-    color: var(--clr-white);
-}
-
-.footer-bottom {
-    text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 2rem;
-    font-size: 0.9rem;
-}
-
-/* --- Animations (Reveal on Scroll) --- */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.fade-left {
-    transform: translateX(-50px);
-}
-.fade-right {
-    transform: translateX(50px);
-}
-.fade-left.active, .fade-right.active {
-    transform: translateX(0);
-}
-
-/* Keyframes */
-@keyframes slideUpFade {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
+    reveals.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementBottom = element.getBoundingClientRect().bottom;
+        const elementVisible = 100;
+        
+        if (elementTop < windowHeight - elementVisible && elementBottom > 0) {
+            element.classList.add('active');
+        } else {
+            // Remove class when out of view so it re-animates every time
+            element.classList.remove('active');
+        }
+    });
+}
+window.addEventListener('scroll', reveal);
+reveal();
+// 4. Menu Tabs and Rendering with Modal
+const categories = [...new Set(menuData.map(item => item.category))];
+const tabContainer = document.getElementById('tabContainer');
+const menuGrid = document.getElementById('menuGrid');
+const seeMoreBtn = document.getElementById('seeMoreBtn');
+// Modal Elements
+const modal = document.getElementById('itemModal');
+const closeModalBtn = document.querySelector('.close-modal');
+const modalImage = document.getElementById('modalImage');
+const modalTitle = document.getElementById('modalTitle');
+const modalCategory = document.getElementById('modalCategory');
+const modalPrice = document.getElementById('modalPrice');
+const modalIngredients = document.getElementById('modalIngredients');
+let currentCategoryItems = [];
+let itemsDisplayed = 0;
+const INITIAL_ITEMS_TO_SHOW = 6;
+function openModal(item) {
+    modalTitle.textContent = item.name;
+    modalCategory.textContent = item.category;
+    modalPrice.textContent = `₹${item.price}`;
+    modalIngredients.textContent = item.ingredients;
+    
+    // Directly show self-contained "Image Not Available" SVG placeholder (minimal dark grey)
+    modalImage.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%232a2a2a'/><text x='50%' y='180' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' font-weight='500' fill='%23888888' letter-spacing='2'>SWAMY'S VAIBHAVAM</text><text x='50%' y='220' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='22' font-weight='600' fill='%23cccccc'>Image Not Available</text></svg>";
+    
+    modal.classList.add('show');
+}
+closeModalBtn.addEventListener('click', () => {
+    modal.classList.remove('show');
+});
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.classList.remove('show');
     }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes gentleFloat {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-12px);
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
-
-@keyframes staggeredFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(15px) scale(0.98);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* --- Modal (Popup) --- */
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 2000; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.modal.show {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-}
-
-.modal-content {
-    background-color: var(--clr-bg);
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 90%;
-    max-width: 900px;
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-    transform: translateY(20px);
-    transition: transform 0.3s ease;
-}
-
-.modal.show .modal-content {
-    transform: translateY(0);
-}
-
-.close-modal {
-    color: var(--clr-white);
-    background-color: rgba(0,0,0,0.5);
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: var(--transition-smooth);
-}
-
-.close-modal:hover,
-.close-modal:focus {
-    background-color: var(--clr-primary);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-}
-
-.modal-image-container {
-    height: 100%;
-    min-height: 300px;
-    background-color: #eee;
-}
-
-.modal-image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.modal-details {
-    padding: 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.ingredients-section h4 {
-    color: var(--clr-secondary);
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    padding-bottom: 0.5rem;
-}
-
-.ingredients-section p {
-    color: var(--clr-text-muted);
-    font-size: 0.95rem;
-}
-
-.menu-item {
-    cursor: pointer;
-}
-
-/* --- Responsive --- */
-@media (max-width: 992px) {
-    .about-grid, .footer-grid {
-        grid-template-columns: 1fr;
-    }
-    .experience-badge {
-        bottom: 10px;
-        left: 10px;
-        width: 140px;
-        height: 140px;
-    }
-    .hero-title {
-        font-size: 4rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .section-padding {
-        padding: 4rem 0;
-    }
-
-    .nav-links {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 250px;
-        height: 100vh;
-        background-color: var(--clr-secondary);
-        padding-top: 5rem;
-        transition: right 0.3s ease;
-        z-index: -1;
+});
+function renderMenu(category, append = false) {
+    if (!append) {
+        menuGrid.innerHTML = '';
+        currentCategoryItems = category === 'All' 
+            ? menuData 
+            : menuData.filter(item => item.category === category);
+        itemsDisplayed = 0;
     }
     
-    .nav-links.active {
-        right: 0;
-    }
-    
-    .nav-links a {
-        color: var(--clr-white) !important;
-        padding: 1rem 2rem;
-        display: block;
-    }
-    
-    .nav-actions {
-        display: none;
-    }
-    
-    .mobile-menu-btn {
-        display: block;
-        z-index: 1001;
-    }
-    
-    .hero-title {
-        font-size: 2.8rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1rem;
-        margin-bottom: 2rem;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .section-title {
-        font-size: 2rem;
-    }
-    
-    .hero {
-        height: 70vh;
-    }
-    
-    .hero-title {
-        font-size: 2.5rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1rem;
-        margin-bottom: 2rem;
-    }
-    
-    /* Compact Reviews for Mobile Instead of Horizontal Scroll */
-    .reviews-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .review-card {
-        padding: 1rem;
-    }
-    
-    .reviewer-img {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .reviewer-info h4 {
-        font-size: 0.95rem;
-    }
-    
-    .guide-info {
-        font-size: 0.7rem;
-    }
-    
-    .review-body p {
-        font-size: 0.85rem;
-        line-height: 1.5;
-    }
-    
-    .stars {
-        font-size: 0.7rem;
-    }
-    
-    /* Fix About Image and Badge for Mobile */
-    .about-image-wrapper {
-        height: 200px;
-        margin-bottom: 2rem;
-    }
-    
-    .experience-badge {
-        width: 90px;
-        height: 90px;
-        padding: 0.5rem;
-        border-width: 4px;
-        bottom: -15px;
-        left: 10px;
-    }
-    
-    .experience-badge .number {
-        font-size: 1.4rem;
-    }
-    
-    .experience-badge .text {
-        font-size: 0.55rem;
-    }
-    
-    .modal-body {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal-image-container {
-        min-height: 200px;
-    }
-    
-    .modal-details {
-        padding: 1.5rem;
-    }
-    
-    .visit-us-section {
-        grid-template-columns: 1fr !important;
-    }
-    
-    .reservation-container {
-        grid-template-columns: 1fr !important;
-        gap: 2rem !important;
+    const itemsToRender = currentCategoryItems.slice(itemsDisplayed, itemsDisplayed + INITIAL_ITEMS_TO_SHOW);
+        
+    itemsToRender.forEach((item, index) => {
+        const menuItem = document.createElement('div');
+        menuItem.className = 'menu-item';
+        
+        // Add staggered animation delay
+        menuItem.style.animation = `staggeredFadeIn 0.5s ease-out forwards`;
+        menuItem.style.animationDelay = `${index * 0.1}s`;
+        menuItem.style.opacity = '0';
+        
+        menuItem.innerHTML = `
+            <div class="item-info">
+                <h4>${item.name}</h4>
+                <p>${item.category}</p>
+            </div>
+            <div class="item-price">₹${item.price}</div>
+        `;
+        
+        // Add click event for modal
+        menuItem.addEventListener('click', () => openModal(item));
+        
+        menuGrid.appendChild(menuItem);
+    });
+    itemsDisplayed += itemsToRender.length;
+    if (itemsDisplayed < currentCategoryItems.length) {
+        seeMoreBtn.style.display = 'block';
+    } else {
+        seeMoreBtn.style.display = 'none';
     }
 }
+seeMoreBtn.addEventListener('click', () => {
+    renderMenu(null, true);
+});
+function initTabs() {
+    // 'All' tab
+    const allBtn = document.createElement('button');
+    allBtn.className = 'tab-btn active';
+    allBtn.innerHTML = `All <span style="opacity:0.6; font-size:0.85em;">(${menuData.length})</span>`;
+    allBtn.onclick = (e) => handleTabClick(e, 'All');
+    tabContainer.appendChild(allBtn);
+    
+    // Category tabs
+    categories.forEach(cat => {
+        const count = menuData.filter(item => item.category === cat).length;
+        const btn = document.createElement('button');
+        btn.className = 'tab-btn';
+        btn.innerHTML = `${cat} <span style="opacity:0.6; font-size:0.85em;">(${count})</span>`;
+        btn.onclick = (e) => handleTabClick(e, cat);
+        tabContainer.appendChild(btn);
+    });
+}
+function handleTabClick(e, category) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    e.target.classList.add('active');
+    
+    menuGrid.style.opacity = 0;
+    setTimeout(() => {
+        renderMenu(category);
+        menuGrid.style.opacity = 1;
+    }, 300);
+}
+initTabs();
+renderMenu('All');
+// Set total menu count dynamically next to "Our Menu" subtitle
+const menuSubtitle = document.querySelector('.section-subtitle');
+if (menuSubtitle) {
+    menuSubtitle.innerHTML = `Our Menu <span style="font-size: 0.9rem; opacity: 0.7; letter-spacing: normal;">(${menuData.length} Items)</span>`;
+}
+// 5. Booking Form Mock Submit
+document.getElementById('bookingForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    const originalText = btn.textContent;
+    
+    btn.textContent = 'Booking Confirmed!';
+    btn.style.backgroundColor = '#2C4C3B'; 
+    
+    setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.backgroundColor = '';
+        e.target.reset();
+    }, 3000);
+});
