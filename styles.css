@@ -922,6 +922,10 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 768px) {
+    .section-padding {
+        padding: 4rem 0;
+    }
+
     .nav-links {
         display: flex;
         flex-direction: column;
@@ -974,11 +978,50 @@ h1, h2, h3, h4 {
     }
     
     .section-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
     
+    /* Make Reviews a Horizontal Swipeable Carousel on Mobile */
     .reviews-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Hide scrollbar Firefox */
+    }
+    .reviews-grid::-webkit-scrollbar {
+        display: none; /* Hide scrollbar Chrome/Safari */
+    }
+    
+    .review-card {
+        min-width: 85vw;
+        scroll-snap-align: center;
+    }
+    
+    /* Fix About Image and Badge for Mobile */
+    .about-image-wrapper {
+        height: 350px;
+        margin-bottom: 2rem;
+    }
+    
+    .experience-badge {
+        width: 120px;
+        height: 120px;
+        padding: 1rem;
+        border-width: 5px;
+        bottom: -20px;
+        left: 10px;
+    }
+    
+    .experience-badge .number {
+        font-size: 1.8rem;
+    }
+    
+    .experience-badge .text {
+        font-size: 0.7rem;
     }
     
     .modal-body {
